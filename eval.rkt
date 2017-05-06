@@ -22,9 +22,6 @@
 (define (store-lookup σ a)
   (hash-ref σ a))
 
-(struct ko (d σ) #:transparent
-  #:property prop:custom-write (lambda (v p w?)
-                                 (fprintf p "KO ~a" (ko-d v))))
 (struct clo (lam ρ) #:transparent
   #:property prop:custom-write (lambda (v p w?)
                                  (fprintf p "<clo ~a>" («lam»-l (clo-lam v)))))
