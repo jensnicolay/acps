@@ -1,0 +1,240 @@
+====================
+regular, wrong: scraping memo check, simple memo update
+
+hellomemo   states 9       time 0       memo 0    | #<set: NUM>
+hellomemo   states 7       time 1       memo 1    | #<set: NUM>
+hellomemo   states 9       time 0       memo 0    | #<set: NUM>
+hellomemo   states 7       time 1       memo 1    | #<set: NUM>
+helloset!   states 26      time 1       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 1       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 1       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 2       memo 0    | #<set: NUM STR>
+hellomemoset!states 15      time 1       memo 0    | #<set: NUM STR>
+hellomemoset!states 10      time 0       memo 1    | #<set: NUM STR>
+hellomemoset!states 15      time 0       memo 0    | #<set: NUM STR>
+hellomemoset!states 10      time 1       memo 1    | #<set: NUM STR>
+fac         states 25      time 4       memo 0    | #<set: NUM>
+fac         states 26      time 3       memo 1    | #<set: NUM>
+fac         states 36      time 5       memo 0    | #<set: NUM>
+fac         states 15      time 1       memo 1    | #<set: NUM>
+fib         states 83      time 57      memo 0    | #<set: NUM>
+fib         states 21      time 2       memo 2    | #<set: NUM>
+fib         states 467     time 840     memo 0    | #<set: NUM>
+fib         states 73      time 14      memo 6    | #<set: NUM>
+fib-mut     states 51      time 8       memo 0    | #<set: NUM>
+fib-mut     states 51      time 10      memo 0    | #<set: NUM>
+fib-mut     states 73      time 14      memo 0    | #<set: NUM>
+fib-mut     states 73      time 18      memo 0    | #<set: NUM>
+blur        states 73      time 17      memo 0    | #<set: BOOL>
+blur        states 38      time 5       memo 3    | #<set: BOOL>
+blur        states 107     time 38      memo 0    | #<set: BOOL>
+blur        states 38      time 5       memo 3    | #<set: BOOL>
+eta         states 26      time 1       memo 0    | #<set: BOOL>
+eta         states 25      time 1       memo 1    | #<set: BOOL>
+eta         states 26      time 2       memo 0    | #<set: BOOL>
+eta         states 25      time 2       memo 1    | #<set: BOOL>
+mj09        states 26      time 5       memo 0    | #<set: NUM>
+mj09        states 22      time 2       memo 1    | #<set: NUM>
+mj09        states 35      time 4       memo 0    | #<set: NUM>
+mj09        states 23      time 2       memo 2    | #<set: NUM>
+gcipd       states 67      time 16      memo 0    | #<set: NUM>
+gcipd       states 55      time 11      memo 2    | #<set: NUM>
+gcipd       states 92      time 49      memo 0    | #<set: NUM>
+gcipd       states 59      time 24      memo 3    | #<set: NUM>
+kcfa2       states 37      time 4       memo 0    | #<set: BOOL>
+kcfa2       states 17      time 1       memo 3    | #<set: BOOL>
+kcfa2       states 41      time 3       memo 0    | #<set: BOOL>
+kcfa2       states 17      time 1       memo 3    | #<set: BOOL>
+kcfa3       states 61      time 4       memo 0    | #<set: BOOL>
+kcfa3       states 19      time 1       memo 3    | #<set: BOOL>
+kcfa3       states 61      time 5       memo 0    | #<set: BOOL>
+kcfa3       states 19      time 2       memo 3    | #<set: BOOL>
+rotate      states 41      time 5       memo 0    | #<set: NUM STR BOOL>
+rotate      states 41      time 6       memo 1    | #<set: NUM STR BOOL>
+rotate      states 51      time 7       memo 0    | #<set: NUM STR BOOL>
+rotate      states 51      time 8       memo 1    | #<set: NUM STR BOOL>
+loop2       states 47      time 18      memo 0    | #<set: NUM>
+loop2       states 27      time 4       memo 2    | #<set: NUM>
+loop2       states 116     time 44      memo 0    | #<set: NUM>
+loop2       states 59      time 13      memo 6    | #<set: NUM>
+sat         states 250     time 897     memo 0    | #<set: BOOL>
+sat         states 94      time 220     memo 14   | #<set: BOOL>
+sat         states 447     time 380     memo 0    | #<set: BOOL>
+sat         states 51      time 20      memo 4    | #<set: BOOL>
+collatz     states 464     time 783     memo 0    | #<set: NUM>
+collatz     states 80      time 34      memo 4    | #<set: NUM>
+collatz     states 4242    time 22014   memo 0    | #<set: NUM>
+collatz     states 81      time 24      memo 5    | #<set: NUM>
+rsa         states 429     time 1089    memo 0    | #<set: BOOL>
+rsa         states 173     time 153     memo 8    | #<set: BOOL>
+rsa         states 1831    time 15438   memo 0    | #<set: BOOL>
+rsa         states 228     time 287     memo 9    | #<set: BOOL>
+primtest    states 304     time 876     memo 0    | #<set: NUM>
+primtest    states 165     time 102     memo 8    | #<set: NUM>
+primtest    states 3622    time 47573   memo 0    | #<set: NUM>
+primtest    states 149     time 90      memo 6    | #<set: NUM>
+factor      states 432     time 586     memo 0    | #<set: () #(struct:addr !%cons)>
+factor      states 432     time 996     memo 0    | #<set: () #(struct:addr !%cons)>
+factor      states 1618    time 4544    memo 0    | #<set: () #(struct:addr (!%cons . (cons 2 _two-list5))) #(struct:addr (!
+factor      states 1620    time 7291    memo 3    | #<set: () #(struct:addr (!%cons . (cons 2 _two-list5))) #(struct:addr (!
+
+
+=====================
+right?: scraping memo update (clean up subsuming entries)
+
+hellomemo   states 9       time 0       memo 0    | #<set: NUM>
+hellomemo   states 7       time 1       memo 1    | #<set: NUM>
+hellomemo   states 9       time 1       memo 0    | #<set: NUM>
+hellomemo   states 7       time 0       memo 1    | #<set: NUM>
+helloset!   states 26      time 2       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 12      memo 0    | #<set: NUM STR>
+helloset!   states 26      time 2       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 2       memo 0    | #<set: NUM STR>
+hellomemoset!states 15      time 1       memo 0    | #<set: NUM STR>
+hellomemoset!states 10      time 0       memo 1    | #<set: NUM STR>
+hellomemoset!states 15      time 0       memo 0    | #<set: NUM STR>
+hellomemoset!states 10      time 0       memo 1    | #<set: NUM STR>
+fac         states 25      time 4       memo 0    | #<set: NUM>
+fac         states 26      time 4       memo 1    | #<set: NUM>
+fac         states 36      time 6       memo 0    | #<set: NUM>
+fac         states 26      time 3       memo 1    | #<set: NUM>
+fib         states 83      time 44      memo 0    | #<set: NUM>
+fib         states 73      time 29      memo 6    | #<set: NUM>
+fib         states 467     time 856     memo 0    | #<set: NUM>
+fib         states 90      time 24      memo 7    | #<set: NUM>
+fib-mut     states 51      time 20      memo 0    | #<set: NUM>
+fib-mut     states 51      time 14      memo 0    | #<set: NUM>
+fib-mut     states 73      time 16      memo 0    | #<set: NUM>
+fib-mut     states 73      time 19      memo 0    | #<set: NUM>
+blur        states 73      time 17      memo 0    | #<set: BOOL>
+blur        states 68      time 19      memo 6    | #<set: BOOL>
+blur        states 107     time 30      memo 0    | #<set: BOOL>
+blur        states 68      time 21      memo 6    | #<set: BOOL>
+eta         states 26      time 2       memo 0    | #<set: BOOL>
+eta         states 25      time 2       memo 1    | #<set: BOOL>
+eta         states 26      time 2       memo 0    | #<set: BOOL>
+eta         states 25      time 2       memo 1    | #<set: BOOL>
+mj09        states 26      time 3       memo 0    | #<set: NUM>
+mj09        states 22      time 1       memo 1    | #<set: NUM>
+mj09        states 35      time 3       memo 0    | #<set: NUM>
+mj09        states 23      time 2       memo 2    | #<set: NUM>
+gcipd       states 67      time 17      memo 0    | #<set: NUM>
+gcipd       states 69      time 21      memo 2    | #<set: NUM>
+gcipd       states 92      time 49      memo 0    | #<set: NUM>
+gcipd       states 69      time 30      memo 2    | #<set: NUM>
+kcfa2       states 37      time 4       memo 0    | #<set: BOOL>
+kcfa2       states 17      time 1       memo 3    | #<set: BOOL>
+kcfa2       states 41      time 3       memo 0    | #<set: BOOL>
+kcfa2       states 17      time 1       memo 3    | #<set: BOOL>
+kcfa3       states 61      time 4       memo 0    | #<set: BOOL>
+kcfa3       states 19      time 2       memo 3    | #<set: BOOL>
+kcfa3       states 61      time 6       memo 0    | #<set: BOOL>
+kcfa3       states 19      time 1       memo 3    | #<set: BOOL>
+rotate      states 41      time 6       memo 0    | #<set: NUM STR BOOL>
+rotate      states 41      time 8       memo 1    | #<set: NUM STR BOOL>
+rotate      states 51      time 11      memo 0    | #<set: NUM STR BOOL>
+rotate      states 51      time 12      memo 1    | #<set: NUM STR BOOL>
+loop2       states 47      time 20      memo 0    | #<set: NUM>
+loop2       states 50      time 21      memo 3    | #<set: NUM>
+loop2       states 116     time 55      memo 0    | #<set: NUM>
+loop2       states 99      time 63      memo 10   | #<set: NUM>
+sat         states 250     time 957     memo 0    | #<set: BOOL>
+sat         states 183     time 6337    memo 42   | #<set: BOOL>
+sat         states 447     time 373     memo 0    | #<set: BOOL>
+sat         states 51      time 27      memo 4    | #<set: BOOL>
+collatz     states 464     time 806     memo 0    | #<set: NUM>
+collatz     states 274     time 281     memo 20   | #<set: NUM>
+collatz     states 4242    time 22413   memo 0    | #<set: NUM>
+collatz     states 210     time 132     memo 14   | #<set: NUM>
+rsa         states 429     time 1116    memo 0    | #<set: BOOL>
+rsa         states 371     time 1318    memo 24   | #<set: BOOL>
+rsa         states 1831    time 15979   memo 0    | #<set: BOOL>
+rsa         states 285     time 383     memo 14   | #<set: BOOL>
+primtest    states 304     time 898     memo 0    | #<set: NUM>
+primtest    states 315     time 754     memo 23   | #<set: NUM>
+primtest    states 3622    time 49034   memo 0    | #<set: NUM>
+primtest    states 261     time 221     memo 15   | #<set: NUM>
+factor      states 432     time 617     memo 0    | #<set: () #(struct:addr !%cons)>
+factor      states 432     time 1033    memo 0    | #<set: () #(struct:addr !%cons)>
+factor      states 1618    time 4774    memo 0    | #<set: () #(struct:addr (!%cons . (cons 2 _two-list5))) #(struct:addr (!
+factor      states 1620    time 7610    memo 4    | #<set: () #(struct:addr (!%cons . (cons 2 _two-list5))) #(struct:addr (!
+
+=========================
+optimization: check for existing M-cached entry
+
+hellomemo   states 9       time 0       memo 0    | #<set: NUM>
+hellomemo   states 7       time 1       memo 1    | #<set: NUM>
+hellomemo   states 9       time 0       memo 0    | #<set: NUM>
+hellomemo   states 7       time 0       memo 1    | #<set: NUM>
+helloset!   states 26      time 1       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 1       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 1       memo 0    | #<set: NUM STR>
+helloset!   states 26      time 2       memo 0    | #<set: NUM STR>
+hellomemoset!states 15      time 1       memo 0    | #<set: NUM STR>
+hellomemoset!states 10      time 1       memo 1    | #<set: NUM STR>
+hellomemoset!states 15      time 0       memo 0    | #<set: NUM STR>
+hellomemoset!states 10      time 0       memo 1    | #<set: NUM STR>
+fac         states 25      time 4       memo 0    | #<set: NUM>
+fac         states 26      time 5       memo 1    | #<set: NUM>
+fac         states 36      time 6       memo 0    | #<set: NUM>
+fac         states 26      time 3       memo 1    | #<set: NUM>
+fib         states 83      time 55      memo 0    | #<set: NUM>
+fib         states 74      time 25      memo 7    | #<set: NUM>
+fib         states 467     time 856     memo 0    | #<set: NUM>
+fib         states 90      time 20      memo 7    | #<set: NUM>
+fib-mut     states 51      time 9       memo 0    | #<set: NUM>
+fib-mut     states 51      time 10      memo 0    | #<set: NUM>
+fib-mut     states 73      time 15      memo 0    | #<set: NUM>
+fib-mut     states 73      time 19      memo 0    | #<set: NUM>
+blur        states 73      time 27      memo 0    | #<set: BOOL>
+blur        states 68      time 23      memo 6    | #<set: BOOL>
+blur        states 107     time 30      memo 0    | #<set: BOOL>
+blur        states 68      time 13      memo 6    | #<set: BOOL>
+eta         states 26      time 1       memo 0    | #<set: BOOL>
+eta         states 25      time 1       memo 1    | #<set: BOOL>
+eta         states 26      time 1       memo 0    | #<set: BOOL>
+eta         states 25      time 1       memo 1    | #<set: BOOL>
+mj09        states 26      time 3       memo 0    | #<set: NUM>
+mj09        states 22      time 1       memo 1    | #<set: NUM>
+mj09        states 35      time 4       memo 0    | #<set: NUM>
+mj09        states 23      time 2       memo 2    | #<set: NUM>
+gcipd       states 67      time 16      memo 0    | #<set: NUM>
+gcipd       states 69      time 20      memo 2    | #<set: NUM>
+gcipd       states 92      time 49      memo 0    | #<set: NUM>
+gcipd       states 69      time 20      memo 2    | #<set: NUM>
+kcfa2       states 37      time 4       memo 0    | #<set: BOOL>
+kcfa2       states 17      time 1       memo 3    | #<set: BOOL>
+kcfa2       states 41      time 3       memo 0    | #<set: BOOL>
+kcfa2       states 17      time 1       memo 3    | #<set: BOOL>
+kcfa3       states 61      time 4       memo 0    | #<set: BOOL>
+kcfa3       states 19      time 1       memo 3    | #<set: BOOL>
+kcfa3       states 61      time 5       memo 0    | #<set: BOOL>
+kcfa3       states 19      time 2       memo 3    | #<set: BOOL>
+rotate      states 41      time 6       memo 0    | #<set: NUM STR BOOL>
+rotate      states 41      time 7       memo 1    | #<set: NUM STR BOOL>
+rotate      states 51      time 7       memo 0    | #<set: NUM STR BOOL>
+rotate      states 51      time 10      memo 1    | #<set: NUM STR BOOL>
+loop2       states 47      time 27      memo 0    | #<set: NUM>
+loop2       states 50      time 21      memo 3    | #<set: NUM>
+loop2       states 116     time 44      memo 0    | #<set: NUM>
+loop2       states 99      time 45      memo 10   | #<set: NUM>
+sat         states 250     time 894     memo 0    | #<set: BOOL>
+sat         states 94      time 304     memo 14   | #<set: BOOL>
+sat         states 447     time 383     memo 0    | #<set: BOOL>
+sat         states 51      time 19      memo 4    | #<set: BOOL>
+collatz     states 464     time 778     memo 0    | #<set: NUM>
+collatz     states 273     time 206     memo 19   | #<set: NUM>
+collatz     states 4242    time 21401   memo 0    | #<set: NUM>
+collatz     states 210     time 112     memo 14   | #<set: NUM>
+rsa         states 429     time 1080    memo 0    | #<set: BOOL>
+rsa         states 285     time 324     memo 16   | #<set: BOOL>
+rsa         states 1831    time 15285   memo 0    | #<set: BOOL>
+rsa         states 285     time 358     memo 14   | #<set: BOOL>
+primtest    states 304     time 886     memo 0    | #<set: NUM>
+primtest    states 312     time 369     memo 19   | #<set: NUM>
+primtest    states 3622    time 50173   memo 0    | #<set: NUM>
+primtest    states 261     time 240     memo 14   | #<set: NUM>
+factor      states 432     time 715     memo 0    | #<set: () #(struct:addr !%cons)>
+factor      states 432     time 1243    memo 0    | #<set: () #(struct:addr !%cons)>
+factor      states 1618    time 5367    memo 0    | #<set: () #(struct:addr (!%cons . (cons 2 _two-list5))) #(struct:addr (!
+factor      states 1620    time 7826    memo 4    | #<set: () #(struct:addr (!%cons . (cons 2 _two-list5))) #(struct:addr (!
