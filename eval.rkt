@@ -52,7 +52,7 @@
                 (loop (set-union (set-rest A) T) (set-add R a))))))))
 
 
-(define (make-evaluator lattice alloc monotonic-store)
+(define (make-evaluator lattice alloc kalloc)
   (define α (lattice-α lattice))
   (define γ (lattice-γ lattice))
   (define ⊥ (lattice-⊥ lattice))
@@ -100,12 +100,14 @@
            (let* ((a (alloc x))
                   (ρ* (env-bind ρ («id»-x x) a))
                   (σ* (store-alloc σ a (car vs))))
-                 (bind-loop xs (cdr vs) ρ* σ*)))))
+             (bind-loop xs (cdr vs) ρ* σ*)))))
       (bind-loop x d-rands ρ σ)))
 
-  (define cache (hash))
+  (define cache-in (hash))
+  (define cache-out (hash))
 
   (define (eval* e ρ σ κ)
+    ;(printf "eval ~a\n" e)
     (match e
       ((«lit» _ d) 
        (κ (α d) σ))
@@ -155,40 +157,49 @@
                   (if (null? rands)
                       (let ((d-rands (reverse d-rands)))
                         (for ((w (in-set (γ d-rator))))
-                             (match w
-                               ((clo _ _)
-                                (let* ((key (list e w rands σ))
-                                       (value (hash-ref cache key #f)))
-                                  (if value
-                                      (apply κ value)
-                                      (apply-proc w d-rands σ
-                                                  (lambda args
-                                                    (set! cache (hash-set cache key args))
-                                                    (apply κ args))))))
-                               ((prim name proc)
-                                (proc e d-rands σ κ))
-                               ((prim2 _ proc)
-                                (κ (apply proc d-rands) σ)))))
+                          (match w
+                            ((clo _ _)
+                             (let* ((key (kalloc e w rands σ))
+                                    (value (hash-ref cache-out key #f)))
+                               (if value
+                                   (for ((args (in-set value)))
+                                     (apply κ args))
+                                   (let ((waiting (hash-ref cache-in key (set))))
+                                     (set! cache-in (hash-set cache-in key (set-add waiting κ)))
+                                     (when (set-empty? waiting)
+                                       (apply-proc w d-rands σ
+                                                   (lambda args
+                                                     (let ((waiting (hash-ref cache-in key))
+                                                           (already (hash-ref cache-out key (set))))
+                                                       (unless (set-member? already args)
+                                                         (set! cache-out (hash-set cache-out key (set-add already args)))
+                                                         (for ((κ (in-set waiting)))
+                                                           (apply κ args)))))))))))
+                            ((prim name proc)
+                             (proc e d-rands σ κ))
+                            ((prim2 _ proc)
+                             (κ (apply proc d-rands) σ))
+                            (_ 'nothing))))
                       (eval* (car rands) ρ σ
                              (lambda (d-rand σ)
                                (rands-loop (cdr rands) (cons d-rand d-rands) σ))))))))))
     
   (lambda (e κ)
-      (let ((global (lattice-global lattice))
-            (compiled-e (compile e)))
-        (set! conc-alloc-counter 0)
-        (let loop ((global global) (ρ (hash)) (σ (hash)))
-          (match global
-            ('()
-             (let* ((ρ* (↓ ρ (free compiled-e)))
-                    (R (reachable (env-addresses ρ*) σ γ))
-                    (σ* (↓ σ R)))
-               (eval* compiled-e ρ* σ* κ)))
-            ((cons (cons x v) r)
-             (let* ((a (conc-alloc))
-                    (ρ* (env-bind ρ x a))
-                    (σ* (store-alloc σ a v)))
-               (loop r ρ* σ*)))))))
+    (let ((global (lattice-global lattice))
+          (compiled-e (compile e)))
+      (set! conc-alloc-counter 0)
+      (let loop ((global global) (ρ (hash)) (σ (hash)))
+        (match global
+          ('()
+           (let* ((ρ* (↓ ρ (free compiled-e)))
+                  (R (reachable (env-addresses ρ*) σ γ))
+                  (σ* (↓ σ R)))
+             (eval* compiled-e ρ* σ* κ)))
+          ((cons (cons x v) r)
+           (let* ((a (conc-alloc))
+                  (ρ* (env-bind ρ x a))
+                  (σ* (store-alloc σ a v)))
+             (loop r ρ* σ*)))))))
   ) ; make-evaluator
 
 
@@ -201,10 +212,13 @@
 
 (define (mono-alloc x)
   x)
+
+(define conc-kalloc (lambda (e clo rands store) (list (conc-alloc) clo rands)))
+(define free-kalloc (lambda (e clo rands store) (list e clo rands)))
 ;;
 
-(define conc-evaluator (make-evaluator conc-lattice conc-alloc #f))
-(define type-evaluator (make-evaluator type-lattice mono-alloc #t))
+(define conc-evaluator (make-evaluator conc-lattice conc-alloc conc-kalloc))
+(define type-evaluator (make-evaluator type-lattice mono-alloc free-kalloc))
 
 (define (perform-eval e evaluator ⊥ ⊔)
   (let ((result ⊥))
@@ -223,7 +237,7 @@
   (when (null? ens)
     (set! ens '(fac fib fib-mut blur eta mj09 gcipd kcfa2 kcfa3 rotate loop2 sat collatz rsa primtest factor nqueens)))
   (define (perform name e)
-   (match-let (((ko d σ) (type-eval e)))
+    (let ((d (type-eval e)))
       (printf "~a ~a\n"
               (~a name #:min-width 12)
               (~a d))))
@@ -231,5 +245,5 @@
             ens))
 
 (define (server-flow-test)
-    (apply flow-test '(fac fib fib-mut blur eta mj09 gcipd kcfa2 kcfa3 rotate loop2
-                           sat collatz rsa primtest factor nqueens dderiv mceval))); boyer))))-
+  (apply flow-test '(fac fib fib-mut blur eta mj09 gcipd kcfa2 kcfa3 rotate loop2
+                         sat collatz rsa primtest factor nqueens dderiv mceval))); boyer))))-
